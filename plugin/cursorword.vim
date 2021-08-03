@@ -13,20 +13,25 @@ let g:loaded_cursorword = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-augroup cursorword
-  autocmd!
-  if has('vim_starting')
-    autocmd VimEnter * call cursorword#highlight() |
-          \ autocmd cursorword WinEnter,BufEnter * call cursorword#matchadd()
-  else
-    call cursorword#highlight()
-    autocmd WinEnter,BufEnter * call cursorword#matchadd()
-  endif
-  autocmd ColorScheme * call cursorword#highlight()
-  autocmd CursorMoved,CursorMovedI * call cursorword#cursormoved()
-  autocmd InsertEnter * call cursorword#matchadd(1)
-  autocmd InsertLeave * call cursorword#matchadd(0)
-augroup END
+if 0
+  augroup cursorword
+    autocmd!
+    if has('vim_starting')
+      autocmd VimEnter * call cursorword#highlight() |
+            \ autocmd cursorword WinEnter,BufEnter * call cursorword#matchadd()
+    else
+      call cursorword#highlight()
+      autocmd WinEnter,BufEnter * call cursorword#matchadd()
+    endif
+    autocmd ColorScheme * call cursorword#highlight()
+    autocmd CursorMoved,CursorMovedI * call cursorword#cursormoved()
+    autocmd InsertEnter * call cursorword#matchadd(1)
+    autocmd InsertLeave * call cursorword#matchadd(0)
+  augroup END
+endif
+
+nnoremap <silent> <leader>h :CursorHighlightToggle<CR>
+command! -bar CursorHighlightToggle call cursorword#toggle()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

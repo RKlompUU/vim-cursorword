@@ -41,6 +41,11 @@ function! cursorword#matchadd(...) abort
   let w:cursorword_match = 1
 endfunction
 
+function! cursorword#toggle() abort
+  call cursorword#highlight()
+  call cursorword#matchadd()
+endfunction
+
 let s:delay = get(g:, 'cursorword_delay', 50)
 if has('timers') && s:delay > 0
   let s:timer = 0
